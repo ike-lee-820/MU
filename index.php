@@ -1,18 +1,18 @@
 <?php
 /**
- * MU ÒôÀÖ API ¡ª Ö÷Ò³Ãæ£¨½Ó¿ÚÎÄµµ + ÔÚÏß²âÊÔÌ¨£©
+ * MU éŸ³ä¹ API â€” ä¸»é¡µé¢ï¼ˆæ¥å£æ–‡æ¡£ + åœ¨çº¿æµ‹è¯•å°ï¼‰
  *
- * ²¿Êğ·½Ê½£º
- *   1) ·Åµ½ÏîÄ¿¸ùÄ¿Â¼£¬ÃüÃû index.php£¨ÍÆ¼ö£©
- *      ·ÃÎÊ https://ÄãµÄÓòÃû/ ¼´¿É´ò¿ª
- *   2) Èô²¿Êğ»·¾³Ö»Ö´ĞĞ api/ Ä¿Â¼ÏÂµÄ PHP£¨Èç Vercel µÄ vercel-php£©£¬
- *      °Ñ±¾ÎÄ¼ş·Åµ½ api/ ÏÂ£¬ÃüÃû home.php£¬·ÃÎÊ https://ÄãµÄÓòÃû/api/home.php
- *      Ò³Ãæ»á×Ô¶¯°Ñ½Ó¿ÚµØÖ·ÍÆµ¼ÎªÍ¬Ä¿Â¼µÄ index.php
+ * éƒ¨ç½²æ–¹å¼ï¼š
+ *   1) æ”¾åˆ°é¡¹ç›®æ ¹ç›®å½•ï¼Œå‘½å index.phpï¼ˆæ¨èï¼‰
+ *      è®¿é—® https://ä½ çš„åŸŸå/ å³å¯æ‰“å¼€
+ *   2) è‹¥éƒ¨ç½²ç¯å¢ƒåªæ‰§è¡Œ api/ ç›®å½•ä¸‹çš„ PHPï¼ˆå¦‚ Vercel çš„ vercel-phpï¼‰ï¼Œ
+ *      æŠŠæœ¬æ–‡ä»¶æ”¾åˆ° api/ ä¸‹ï¼Œå‘½å home.phpï¼Œè®¿é—® https://ä½ çš„åŸŸå/api/home.php
+ *      é¡µé¢ä¼šè‡ªåŠ¨æŠŠæ¥å£åœ°å€æ¨å¯¼ä¸ºåŒç›®å½•çš„ index.php
  *
- * »·¾³ÒªÇó£ºPHP 5.4+
+ * ç¯å¢ƒè¦æ±‚ï¼šPHP 5.4+
  */
 
-// ---------- ×Ô¶¯ÍÆµ¼½Ó¿ÚµØÖ· ----------
+// ---------- è‡ªåŠ¨æ¨å¯¼æ¥å£åœ°å€ ----------
 $scheme = 'http';
 if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
     $scheme = $_SERVER['HTTP_X_FORWARDED_PROTO'];
@@ -26,20 +26,20 @@ $dir  = isset($_SERVER['SCRIPT_NAME']) ? str_replace('\\', '/', dirname($_SERVER
 $dir  = rtrim($dir, '/');
 
 if (substr($dir, -4) === '/api') {
-    // ±¾Ò³Î»ÓÚ api/ Ä¿Â¼£¬½Ó¿ÚÎªÍ¬Ä¿Â¼µÄ index.php
+    // æœ¬é¡µä½äº api/ ç›®å½•ï¼Œæ¥å£ä¸ºåŒç›®å½•çš„ index.php
     $apiDefault = $dir . '/index.php';
 } else {
-    // ±¾Ò³Î»ÓÚ¸ùÄ¿Â¼£¬½Ó¿ÚÎª api/index.php
+    // æœ¬é¡µä½äºæ ¹ç›®å½•ï¼Œæ¥å£ä¸º api/index.php
     $apiDefault = ($dir === '' ? '' : $dir) . '/api/index.php';
 }
 $apiDefault = $scheme . '://' . $host . $apiDefault;
 
-// ---------- ½Ó¿Ú¶¨Òå£¨ÎÄµµÓë²âÊÔÌ¨¹²ÓÃµÄÎ¨Ò»Êı¾İÔ´£© ----------
+// ---------- æ¥å£å®šä¹‰ï¼ˆæ–‡æ¡£ä¸æµ‹è¯•å°å…±ç”¨çš„å”¯ä¸€æ•°æ®æºï¼‰ ----------
 $SERVERS = array(
-    array('value' => 'netease', 'label' => 'ÍøÒ×ÔÆÒôÀÖ', 'id' => 'Êı×Ö¸èÇú ID'),
-    array('value' => 'tencent', 'label' => 'QQ ÒôÀÖ',    'id' => 'songmid ×Ö·û´®'),
-    array('value' => 'kugou',   'label' => '¿á¹·ÒôÀÖ',   'id' => 'hash 32 Î»×Ö·û´®'),
-    array('value' => 'kuwo',    'label' => '¿áÎÒÒôÀÖ',   'id' => 'rid Êı×Ö'),
+    array('value' => 'netease', 'label' => 'ç½‘æ˜“äº‘éŸ³ä¹', 'id' => 'æ•°å­—æ­Œæ›² ID'),
+    array('value' => 'tencent', 'label' => 'QQ éŸ³ä¹',    'id' => 'songmid å­—ç¬¦ä¸²'),
+    array('value' => 'kugou',   'label' => 'é…·ç‹—éŸ³ä¹',   'id' => 'hash 32 ä½å­—ç¬¦ä¸²'),
+    array('value' => 'kuwo',    'label' => 'é…·æˆ‘éŸ³ä¹',   'id' => 'rid æ•°å­—'),
 );
 
 $SUPPORT = array(
@@ -56,15 +56,15 @@ $SUPPORT = array(
 
 $INTERFACES = array(
     'search' => array(
-        'title'   => 'ËÑË÷',
-        'summary' => '°´¹Ø¼ü´ÊËÑË÷µ¥Çú£¬·µ»Ø¸èÇú¶ÔÏóÊı×é¡£',
-        'returns' => '¸èÇú¶ÔÏóÊı×é',
+        'title'   => 'æœç´¢',
+        'summary' => 'æŒ‰å…³é”®è¯æœç´¢å•æ›²ï¼Œè¿”å›æ­Œæ›²å¯¹è±¡æ•°ç»„ã€‚',
+        'returns' => 'æ­Œæ›²å¯¹è±¡æ•°ç»„',
         'params'  => array(
-            array('name' => 'id',    'label' => '¹Ø¼ü´Ê',   'type' => 'text',   'default' => '',   'desc' => '¸èÃû»ò¸èÊÖÃû£¬±ØÌî'),
-            array('name' => 'page',  'label' => 'Ò³Âë',     'type' => 'number', 'default' => '1',  'desc' => 'Ä¬ÈÏ 1'),
-            array('name' => 'limit', 'label' => 'Ã¿Ò³ÌõÊı', 'type' => 'number', 'default' => '30', 'desc' => 'Ä¬ÈÏ 30'),
+            array('name' => 'id',    'label' => 'å…³é”®è¯',   'type' => 'text',   'default' => '',   'desc' => 'æ­Œåæˆ–æ­Œæ‰‹åï¼Œå¿…å¡«'),
+            array('name' => 'page',  'label' => 'é¡µç ',     'type' => 'number', 'default' => '1',  'desc' => 'é»˜è®¤ 1'),
+            array('name' => 'limit', 'label' => 'æ¯é¡µæ¡æ•°', 'type' => 'number', 'default' => '30', 'desc' => 'é»˜è®¤ 30'),
         ),
-        'sample'   => array('id' => 'ÇçÌì', 'page' => '1', 'limit' => '10'),
+        'sample'   => array('id' => 'æ™´å¤©', 'page' => '1', 'limit' => '10'),
         'response' => '[
   {
     "id": 35847388,
@@ -77,14 +77,14 @@ $INTERFACES = array(
     "source": "netease"
   }
 ]',
-        'note' => 'ÍøÒ×ÔÆ²à×ß cloudsearch/pc£¬ÁíÓĞÒ»¸öÄÚ²¿×Ó²ÎÊı type£¨Ä¬ÈÏ 1 ±íÊ¾µ¥Çú£©£»ÆäÓàÆ½Ì¨¹Ì¶¨ËÑË÷µ¥Çú¡£',
+        'note' => 'ç½‘æ˜“äº‘ä¾§èµ° cloudsearch/pcï¼Œå¦æœ‰ä¸€ä¸ªå†…éƒ¨å­å‚æ•° typeï¼ˆé»˜è®¤ 1 è¡¨ç¤ºå•æ›²ï¼‰ï¼›å…¶ä½™å¹³å°å›ºå®šæœç´¢å•æ›²ã€‚',
     ),
     'song' => array(
-        'title'   => '¸èÇúÏêÇé',
-        'summary' => '°´¸èÇú ID ²éÑ¯ÏêÇé£¬·µ»Øµ¥ÔªËØ¸èÇú¶ÔÏóÊı×é¡£',
-        'returns' => '¸èÇú¶ÔÏóÊı×é',
+        'title'   => 'æ­Œæ›²è¯¦æƒ…',
+        'summary' => 'æŒ‰æ­Œæ›² ID æŸ¥è¯¢è¯¦æƒ…ï¼Œè¿”å›å•å…ƒç´ æ­Œæ›²å¯¹è±¡æ•°ç»„ã€‚',
+        'returns' => 'æ­Œæ›²å¯¹è±¡æ•°ç»„',
         'params'  => array(
-            array('name' => 'id', 'label' => '¸èÇú ID', 'type' => 'text', 'default' => '', 'desc' => '±ØÌî'),
+            array('name' => 'id', 'label' => 'æ­Œæ›² ID', 'type' => 'text', 'default' => '', 'desc' => 'å¿…å¡«'),
         ),
         'sample'   => array('id' => '35847388'),
         'response' => '[
@@ -96,49 +96,49 @@ $INTERFACES = array(
     "source": "netease"
   }
 ]',
-        'note' => '¿á¹·×ß m.kugou.com µÄ getSongInfo£¬¿áÎÒ×ß datacenter.kuwo.cn ÅúÁ¿²éÑ¯½Ó¿Ú¡£',
+        'note' => 'é…·ç‹—èµ° m.kugou.com çš„ getSongInfoï¼Œé…·æˆ‘èµ° datacenter.kuwo.cn æ‰¹é‡æŸ¥è¯¢æ¥å£ã€‚',
     ),
     'album' => array(
-        'title'   => '×¨¼­¸èÇú',
-        'summary' => '°´×¨¼­ ID À­È¡×¨¼­ÄÚ¸èÇúÁĞ±í¡£',
-        'returns' => '¸èÇú¶ÔÏóÊı×é',
+        'title'   => 'ä¸“è¾‘æ­Œæ›²',
+        'summary' => 'æŒ‰ä¸“è¾‘ ID æ‹‰å–ä¸“è¾‘å†…æ­Œæ›²åˆ—è¡¨ã€‚',
+        'returns' => 'æ­Œæ›²å¯¹è±¡æ•°ç»„',
         'params'  => array(
-            array('name' => 'id', 'label' => '×¨¼­ ID', 'type' => 'text', 'default' => '', 'desc' => '±ØÌî'),
+            array('name' => 'id', 'label' => 'ä¸“è¾‘ ID', 'type' => 'text', 'default' => '', 'desc' => 'å¿…å¡«'),
         ),
         'sample'   => array('id' => '34879'),
-        'response' => '[ /* ¸èÇú¶ÔÏóÊı×é */ ]',
-        'note' => 'ÍøÒ×ÔÆ¹Ì¶¨À­È¡ 1000 Ê×£»¿á¹· pagesize Îª -1 È¡È«²¿£»¿áÎÒÊÇ½âÎö×¨¼­Ò³ HTML£¬Ò³Ãæ½á¹¹±ä¶¯Ê±»áÊ§Ğ§¡£',
+        'response' => '[ /* æ­Œæ›²å¯¹è±¡æ•°ç»„ */ ]',
+        'note' => 'ç½‘æ˜“äº‘å›ºå®šæ‹‰å– 1000 é¦–ï¼›é…·ç‹— pagesize ä¸º -1 å–å…¨éƒ¨ï¼›é…·æˆ‘æ˜¯è§£æä¸“è¾‘é¡µ HTMLï¼Œé¡µé¢ç»“æ„å˜åŠ¨æ—¶ä¼šå¤±æ•ˆã€‚',
     ),
     'artist' => array(
-        'title'   => '¸èÊÖÈÈÃÅ¸èÇú',
-        'summary' => '°´¸èÊÖ ID À­È¡ÈÈÃÅ¸èÇú¡£',
-        'returns' => '¸èÇú¶ÔÏóÊı×é',
+        'title'   => 'æ­Œæ‰‹çƒ­é—¨æ­Œæ›²',
+        'summary' => 'æŒ‰æ­Œæ‰‹ ID æ‹‰å–çƒ­é—¨æ­Œæ›²ã€‚',
+        'returns' => 'æ­Œæ›²å¯¹è±¡æ•°ç»„',
         'params'  => array(
-            array('name' => 'id',    'label' => '¸èÊÖ ID', 'type' => 'text',   'default' => '',   'desc' => '±ØÌî'),
-            array('name' => 'limit', 'label' => '·µ»ØÌõÊı', 'type' => 'number', 'default' => '50', 'desc' => 'Ä¬ÈÏ 50'),
+            array('name' => 'id',    'label' => 'æ­Œæ‰‹ ID', 'type' => 'text',   'default' => '',   'desc' => 'å¿…å¡«'),
+            array('name' => 'limit', 'label' => 'è¿”å›æ¡æ•°', 'type' => 'number', 'default' => '50', 'desc' => 'é»˜è®¤ 50'),
         ),
         'sample'   => array('id' => '3684', 'limit' => '20'),
-        'response' => '[ /* ¸èÇú¶ÔÏóÊı×é */ ]',
-        'note' => '½öÍøÒ×ÔÆ·ÖÖ§¿É¿¿£»Ô´ÂëÖĞÌÚÑ¶Óë¿á¹··ÖÖ§ÎóÓÃÁË¿á¹·µÄ¸èÊÖ½Ó¿ÚµØÖ·£¬½¨Òé¸ÄÓÃËÑË÷´úÌæ¡£',
+        'response' => '[ /* æ­Œæ›²å¯¹è±¡æ•°ç»„ */ ]',
+        'note' => 'ä»…ç½‘æ˜“äº‘åˆ†æ”¯å¯é ï¼›æºç ä¸­è…¾è®¯ä¸é…·ç‹—åˆ†æ”¯è¯¯ç”¨äº†é…·ç‹—çš„æ­Œæ‰‹æ¥å£åœ°å€ï¼Œå»ºè®®æ”¹ç”¨æœç´¢ä»£æ›¿ã€‚',
     ),
     'playlist' => array(
-        'title'   => '¸èµ¥¸èÇú',
-        'summary' => '°´¸èµ¥ ID À­È¡¸èµ¥ÄÚ¸èÇú¡£',
-        'returns' => '¸èÇú¶ÔÏóÊı×é',
+        'title'   => 'æ­Œå•æ­Œæ›²',
+        'summary' => 'æŒ‰æ­Œå• ID æ‹‰å–æ­Œå•å†…æ­Œæ›²ã€‚',
+        'returns' => 'æ­Œæ›²å¯¹è±¡æ•°ç»„',
         'params'  => array(
-            array('name' => 'id', 'label' => '¸èµ¥ ID', 'type' => 'text', 'default' => '', 'desc' => '¿áÎÒÌî pid£¬±ØÌî'),
+            array('name' => 'id', 'label' => 'æ­Œå• ID', 'type' => 'text', 'default' => '', 'desc' => 'é…·æˆ‘å¡« pidï¼Œå¿…å¡«'),
         ),
         'sample'   => array('id' => '2250011882'),
-        'response' => '[ /* ¸èÇú¶ÔÏóÊı×é */ ]',
-        'note' => 'ÍøÒ×ÔÆÈ¡ playlist.tracks£¬QQ È¡ cdlist ÏÂµÄ songlist£¬¿áÎÒ×î¶à·µ»Ø 1000 Ê×¡£',
+        'response' => '[ /* æ­Œæ›²å¯¹è±¡æ•°ç»„ */ ]',
+        'note' => 'ç½‘æ˜“äº‘å– playlist.tracksï¼ŒQQ å– cdlist ä¸‹çš„ songlistï¼Œé…·æˆ‘æœ€å¤šè¿”å› 1000 é¦–ã€‚',
     ),
     'url' => array(
-        'title'   => '²¥·ÅÖ±Á´',
-        'summary' => '»ñÈ¡¸èÇú¿É²¥·ÅµÄÒôÆµÖ±Á´¡£',
-        'returns' => 'µ¥¶ÔÏó',
+        'title'   => 'æ’­æ”¾ç›´é“¾',
+        'summary' => 'è·å–æ­Œæ›²å¯æ’­æ”¾çš„éŸ³é¢‘ç›´é“¾ã€‚',
+        'returns' => 'å•å¯¹è±¡',
         'params'  => array(
-            array('name' => 'id', 'label' => '¸èÇú ID', 'type' => 'text',   'default' => '',    'desc' => 'Ìî url_id£¬±ØÌî'),
-            array('name' => 'br', 'label' => 'Ä¿±êÂëÂÊ', 'type' => 'number', 'default' => '320', 'desc' => 'µ¥Î» kbps£¬Ä¬ÈÏ 320'),
+            array('name' => 'id', 'label' => 'æ­Œæ›² ID', 'type' => 'text',   'default' => '',    'desc' => 'å¡« url_idï¼Œå¿…å¡«'),
+            array('name' => 'br', 'label' => 'ç›®æ ‡ç ç‡', 'type' => 'number', 'default' => '320', 'desc' => 'å•ä½ kbpsï¼Œé»˜è®¤ 320'),
         ),
         'sample'   => array('id' => '35847388', 'br' => '320'),
         'response' => '{
@@ -146,35 +146,35 @@ $INTERFACES = array(
   "size": 4729252,
   "br": 320
 }',
-        'note' => 'url Îª¿Õ´®ÇÒ br Îª -1 ±íÊ¾ÎŞ×ÊÔ´»òÎŞ°æÈ¨¡£QQ ÒôÀÖ»á¶ş´Î»»È¡ vkey ²¢ÔÚ²»¸ßÓÚ br µÄ·¶Î§ÄÚÈ¡×î¸ßÒôÖÊ£»¿áÎÒ¹Ì¶¨ 128kbps ÇÒ²»º¬ size ×Ö¶Î¡£Ö±Á´´øÊ±Ğ§Óë Referer Ğ£Ñé£¬½¨ÒéÔÚÓĞĞ§ÆÚÄÚÊ¹ÓÃ»òÓÉ·şÎñ¶Ë´úÀí×ª·¢¡£',
+        'note' => 'url ä¸ºç©ºä¸²ä¸” br ä¸º -1 è¡¨ç¤ºæ— èµ„æºæˆ–æ— ç‰ˆæƒã€‚QQ éŸ³ä¹ä¼šäºŒæ¬¡æ¢å– vkey å¹¶åœ¨ä¸é«˜äº br çš„èŒƒå›´å†…å–æœ€é«˜éŸ³è´¨ï¼›é…·æˆ‘å›ºå®š 128kbps ä¸”ä¸å« size å­—æ®µã€‚ç›´é“¾å¸¦æ—¶æ•ˆä¸ Referer æ ¡éªŒï¼Œå»ºè®®åœ¨æœ‰æ•ˆæœŸå†…ä½¿ç”¨æˆ–ç”±æœåŠ¡ç«¯ä»£ç†è½¬å‘ã€‚',
     ),
     'lyric' => array(
-        'title'   => '¸è´Ê',
-        'summary' => '»ñÈ¡¸è´ÊÔ­ÎÄÓë·­Òë¡£',
-        'returns' => 'µ¥¶ÔÏó',
+        'title'   => 'æ­Œè¯',
+        'summary' => 'è·å–æ­Œè¯åŸæ–‡ä¸ç¿»è¯‘ã€‚',
+        'returns' => 'å•å¯¹è±¡',
         'params'  => array(
-            array('name' => 'id', 'label' => '¸èÇú ID', 'type' => 'text', 'default' => '', 'desc' => 'Ìî lyric_id£¬±ØÌî'),
+            array('name' => 'id', 'label' => 'æ­Œæ›² ID', 'type' => 'text', 'default' => '', 'desc' => 'å¡« lyric_idï¼Œå¿…å¡«'),
         ),
         'sample'   => array('id' => '35847388'),
         'response' => '{
-  "lyric": "[00:00.000] ×÷´Ê : ...\n[00:12.34]Hello, it is me",
+  "lyric": "[00:00.000] ä½œè¯ : ...\n[00:12.34]Hello, it is me",
   "tlyric": ""
 }',
-        'note' => '·µ»Ø LRC ¸ñÊ½ÎÄ±¾º¬Ê±¼äÖá¡£¿á¹·Óë¿áÎÒµÄ tlyric ºãÎª¿Õ´®£»QQ ÒôÀÖ·µ»ØµÄÊÇ JSONP °ü¹üµÄ Base64£¬½Ó¿ÚÄÚ²¿ÒÑ½âÂë¡£',
+        'note' => 'è¿”å› LRC æ ¼å¼æ–‡æœ¬å«æ—¶é—´è½´ã€‚é…·ç‹—ä¸é…·æˆ‘çš„ tlyric æ’ä¸ºç©ºä¸²ï¼›QQ éŸ³ä¹è¿”å›çš„æ˜¯ JSONP åŒ…è£¹çš„ Base64ï¼Œæ¥å£å†…éƒ¨å·²è§£ç ã€‚',
     ),
     'pic' => array(
-        'title'   => '·âÃæÍ¼',
-        'summary' => '»ñÈ¡¸èÇú·âÃæÍ¼Æ¬µØÖ·¡£',
-        'returns' => 'µ¥¶ÔÏó',
+        'title'   => 'å°é¢å›¾',
+        'summary' => 'è·å–æ­Œæ›²å°é¢å›¾ç‰‡åœ°å€ã€‚',
+        'returns' => 'å•å¯¹è±¡',
         'params'  => array(
-            array('name' => 'id',   'label' => '¸èÇú ID', 'type' => 'text',   'default' => '',    'desc' => 'Ìî pic_id£¬±ØÌî'),
-            array('name' => 'size', 'label' => 'Í¼Æ¬±ß³¤', 'type' => 'number', 'default' => '400', 'desc' => 'ÏñËØ£¬Õı·½ĞÎ£¬Ä¬ÈÏ 400'),
+            array('name' => 'id',   'label' => 'æ­Œæ›² ID', 'type' => 'text',   'default' => '',    'desc' => 'å¡« pic_idï¼Œå¿…å¡«'),
+            array('name' => 'size', 'label' => 'å›¾ç‰‡è¾¹é•¿', 'type' => 'number', 'default' => '400', 'desc' => 'åƒç´ ï¼Œæ­£æ–¹å½¢ï¼Œé»˜è®¤ 400'),
         ),
         'sample'   => array('id' => '35847388', 'size' => '300'),
         'response' => '{
   "url": "https://p3.music.126.net/xxx/yyy.jpg?param=300y300"
 }',
-        'note' => '¸Ã½Ó¿ÚÄÚ²¿»áÏÈµ÷ÓÃÒ»´Î¸èÇúÏêÇéÄÃ×¨¼­ĞÅÏ¢£¬Òò´Ë±ÈÆäËü½Ó¿ÚÂıÒ»Ìø£»¿áÎÒ×¨¼­ĞÅÏ¢È±Ê§Ê±·µ»ØÄ¬ÈÏÕ¼Î»Í¼¡£',
+        'note' => 'è¯¥æ¥å£å†…éƒ¨ä¼šå…ˆè°ƒç”¨ä¸€æ¬¡æ­Œæ›²è¯¦æƒ…æ‹¿ä¸“è¾‘ä¿¡æ¯ï¼Œå› æ­¤æ¯”å…¶å®ƒæ¥å£æ…¢ä¸€è·³ï¼›é…·æˆ‘ä¸“è¾‘ä¿¡æ¯ç¼ºå¤±æ—¶è¿”å›é»˜è®¤å ä½å›¾ã€‚',
     ),
 );
 
@@ -195,7 +195,7 @@ function h($s) { return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>MU ÒôÀÖ API ¡¤ ½Ó¿ÚÎÄµµÓë²âÊÔÌ¨</title>
+<title>MU éŸ³ä¹ API Â· æ¥å£æ–‡æ¡£ä¸æµ‹è¯•å°</title>
 <style>
 :root{
   --p:#6750A4; --on-p:#FFFFFF; --p-c:#EADDFF; --on-p-c:#21005D;
@@ -414,43 +414,43 @@ hr.sep{border:none;border-top:1px solid var(--out-v);margin:22px 0}
 
 <header class="appbar" id="bar">
   <div class="appbar-in">
-    <h1>MU ÒôÀÖ API</h1>
-    <button class="icobtn" id="theme" title="ÇĞ»»Ã÷°µÖ÷Ìâ" aria-label="ÇĞ»»Ã÷°µÖ÷Ìâ"><svg class="i"><use href="#i-moon"/></svg></button>
+    <h1>MU éŸ³ä¹ API</h1>
+    <button class="icobtn" id="theme" title="åˆ‡æ¢æ˜æš—ä¸»é¢˜" aria-label="åˆ‡æ¢æ˜æš—ä¸»é¢˜"><svg class="i"><use href="#i-moon"/></svg></button>
   </div>
   <div class="tabs" role="tablist">
-    <button class="tab" role="tab" aria-selected="true"  data-p="doc"><svg class="i ti"><use href="#i-doc"/></svg>½Ó¿ÚÎÄµµ</button>
-    <button class="tab" role="tab" aria-selected="false" data-p="lab"><svg class="i ti"><use href="#i-lab"/></svg>ÔÚÏß²âÊÔ</button>
+    <button class="tab" role="tab" aria-selected="true"  data-p="doc"><svg class="i ti"><use href="#i-doc"/></svg>æ¥å£æ–‡æ¡£</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="lab"><svg class="i ti"><use href="#i-lab"/></svg>åœ¨çº¿æµ‹è¯•</button>
   </div>
 </header>
 
 <div class="wrap">
 
-<!-- ===================== ÎÄµµ ===================== -->
+<!-- ===================== æ–‡æ¡£ ===================== -->
 <section id="p-doc">
 
   <div class="card out">
-    <h2>¸ÅÀÀ</h2>
-    <p class="sub">µ¥ÎÄ¼ş PHP ÒôÀÖ½Ó¿Ú£¬¾ÛºÏÍøÒ×ÔÆ¡¢QQ ÒôÀÖ¡¢¿á¹·¡¢¿áÎÒËÄ´óÆ½Ì¨£¬Êä³öÍ³Ò»µÄ¸èÇúÊı¾İ½á¹¹¡£</p>
-    <p class="sub" style="margin-top:8px">ºËĞÄÀà <code>Metowolf\Meting</code> °æ±¾ 1.5.20£¬Ô´×Ô ELDment/Meting-Fixed¡£</p>
+    <h2>æ¦‚è§ˆ</h2>
+    <p class="sub">å•æ–‡ä»¶ PHP éŸ³ä¹æ¥å£ï¼Œèšåˆç½‘æ˜“äº‘ã€QQ éŸ³ä¹ã€é…·ç‹—ã€é…·æˆ‘å››å¤§å¹³å°ï¼Œè¾“å‡ºç»Ÿä¸€çš„æ­Œæ›²æ•°æ®ç»“æ„ã€‚</p>
+    <p class="sub" style="margin-top:8px">æ ¸å¿ƒç±» <code>Metowolf\Meting</code> ç‰ˆæœ¬ 1.5.20ï¼Œæºè‡ª ELDment/Meting-Fixedã€‚</p>
   </div>
 
-  <div class="sec-t">Ö§³ÖÆ½Ì¨</div>
+  <div class="sec-t">æ”¯æŒå¹³å°</div>
   <div class="card out">
     <div class="tw"><table>
-      <thead><tr><th>server È¡Öµ</th><th>Æ½Ì¨</th><th>ID ÀàĞÍ</th></tr></thead>
+      <thead><tr><th>server å–å€¼</th><th>å¹³å°</th><th>ID ç±»å‹</th></tr></thead>
       <tbody>
       <?php foreach ($SERVERS as $s) { ?>
         <tr><td><code><?php echo h($s['value']); ?></code></td><td><?php echo h($s['label']); ?></td><td><?php echo h($s['id']); ?></td></tr>
       <?php } ?>
       </tbody>
     </table></div>
-    <p class="sub" style="margin-top:8px">server È±Ê¡»òÈ¡Öµ·Ç·¨Ê±×Ô¶¯»ØÂäµ½ netease¡£</p>
+    <p class="sub" style="margin-top:8px">server ç¼ºçœæˆ–å–å€¼éæ³•æ—¶è‡ªåŠ¨å›è½åˆ° neteaseã€‚</p>
   </div>
 
-  <div class="sec-t">½Ó¿ÚÒ»ÀÀ</div>
+  <div class="sec-t">æ¥å£ä¸€è§ˆ</div>
   <div class="card out">
     <div class="tw"><table>
-      <thead><tr><th>type</th><th>ËµÃ÷</th><th class="c">ÍøÒ×ÔÆ</th><th class="c">QQ</th><th class="c">¿á¹·</th><th class="c">¿áÎÒ</th></tr></thead>
+      <thead><tr><th>type</th><th>è¯´æ˜</th><th class="c">ç½‘æ˜“äº‘</th><th class="c">QQ</th><th class="c">é…·ç‹—</th><th class="c">é…·æˆ‘</th></tr></thead>
       <tbody>
       <?php foreach ($INTERFACES as $k => $v) {
         $sp = isset($SUPPORT[$k]) ? $SUPPORT[$k] : array(1,1,1,1); ?>
@@ -458,9 +458,9 @@ hr.sep{border:none;border-top:1px solid var(--out-v);margin:22px 0}
           <td><code><?php echo h($k); ?></code></td>
           <td><?php echo h($v['title']); ?></td>
           <?php for ($i = 0; $i < 4; $i++) {
-            if ($sp[$i] === 1)      { echo '<td class="c"><span class="pill y">Ö§³Ö</span></td>'; }
-            elseif ($sp[$i] === 2)  { echo '<td class="c"><span class="pill w">´ıÑéÖ¤</span></td>'; }
-            else                    { echo '<td class="c"><span class="pill n">²»Ö§³Ö</span></td>'; }
+            if ($sp[$i] === 1)      { echo '<td class="c"><span class="pill y">æ”¯æŒ</span></td>'; }
+            elseif ($sp[$i] === 2)  { echo '<td class="c"><span class="pill w">å¾…éªŒè¯</span></td>'; }
+            else                    { echo '<td class="c"><span class="pill n">ä¸æ”¯æŒ</span></td>'; }
           } ?>
         </tr>
       <?php } ?>
@@ -468,98 +468,98 @@ hr.sep{border:none;border-top:1px solid var(--out-v);margin:22px 0}
     </table></div>
   </div>
 
-  <div class="sec-t">Í³Ò»¸èÇú¶ÔÏó</div>
+  <div class="sec-t">ç»Ÿä¸€æ­Œæ›²å¯¹è±¡</div>
   <div class="card out">
-    <p class="sub">Êı¾İÀà½Ó¿Ú£¨search / song / album / artist / playlist£©·µ»ØÊı×éµÄÃ¿Ò»Ïî½á¹¹ÈçÏÂ¡£</p>
+    <p class="sub">æ•°æ®ç±»æ¥å£ï¼ˆsearch / song / album / artist / playlistï¼‰è¿”å›æ•°ç»„çš„æ¯ä¸€é¡¹ç»“æ„å¦‚ä¸‹ã€‚</p>
     <div class="tw"><table>
-      <thead><tr><th>×Ö¶Î</th><th>ÀàĞÍ</th><th>ËµÃ÷</th></tr></thead>
+      <thead><tr><th>å­—æ®µ</th><th>ç±»å‹</th><th>è¯´æ˜</th></tr></thead>
       <tbody>
-        <tr><td><code>id</code></td><td>string / number</td><td>¸èÇú ID</td></tr>
-        <tr><td><code>name</code></td><td>string</td><td>¸èÇúÃû</td></tr>
-        <tr><td><code>artist</code></td><td>array</td><td>¸èÊÖÃûÊı×é</td></tr>
-        <tr><td><code>album</code></td><td>string</td><td>×¨¼­Ãû</td></tr>
-        <tr><td><code>pic_id</code></td><td>string / number</td><td>·âÃæ ID£¬¹© type=pic Ê¹ÓÃ</td></tr>
-        <tr><td><code>url_id</code></td><td>string / number</td><td>Ö±Á´ ID£¬¹© type=url Ê¹ÓÃ</td></tr>
-        <tr><td><code>lyric_id</code></td><td>string / number</td><td>¸è´Ê ID£¬¹© type=lyric Ê¹ÓÃ</td></tr>
-        <tr><td><code>source</code></td><td>string</td><td>À´Ô´Æ½Ì¨±êÊ¶</td></tr>
+        <tr><td><code>id</code></td><td>string / number</td><td>æ­Œæ›² ID</td></tr>
+        <tr><td><code>name</code></td><td>string</td><td>æ­Œæ›²å</td></tr>
+        <tr><td><code>artist</code></td><td>array</td><td>æ­Œæ‰‹åæ•°ç»„</td></tr>
+        <tr><td><code>album</code></td><td>string</td><td>ä¸“è¾‘å</td></tr>
+        <tr><td><code>pic_id</code></td><td>string / number</td><td>å°é¢ IDï¼Œä¾› type=pic ä½¿ç”¨</td></tr>
+        <tr><td><code>url_id</code></td><td>string / number</td><td>ç›´é“¾ IDï¼Œä¾› type=url ä½¿ç”¨</td></tr>
+        <tr><td><code>lyric_id</code></td><td>string / number</td><td>æ­Œè¯ IDï¼Œä¾› type=lyric ä½¿ç”¨</td></tr>
+        <tr><td><code>source</code></td><td>string</td><td>æ¥æºå¹³å°æ ‡è¯†</td></tr>
       </tbody>
     </table></div>
-    <p class="sub" style="margin-top:8px">¿á¹·µÄ artist ÓÉÎÄ¼şÃû°´¡¸ - ¡¹²ğ·ÖºóÔÙ°´¡¸¡¢¡¹ÇĞ·Ö£¬¸ö±ğ¸èÇú¿ÉÄÜ²ğ·Ö²»×¼¡£</p>
+    <p class="sub" style="margin-top:8px">é…·ç‹—çš„ artist ç”±æ–‡ä»¶åæŒ‰ã€Œ - ã€æ‹†åˆ†åå†æŒ‰ã€Œã€ã€åˆ‡åˆ†ï¼Œä¸ªåˆ«æ­Œæ›²å¯èƒ½æ‹†åˆ†ä¸å‡†ã€‚</p>
   </div>
 
-  <div class="sec-t">Í¨ÓÃµ÷ÓÃ</div>
+  <div class="sec-t">é€šç”¨è°ƒç”¨</div>
   <div class="card out">
     <div class="tw"><table>
-      <thead><tr><th>²ÎÊı</th><th>±ØÌî</th><th>Ä¬ÈÏ</th><th>ËµÃ÷</th></tr></thead>
+      <thead><tr><th>å‚æ•°</th><th>å¿…å¡«</th><th>é»˜è®¤</th><th>è¯´æ˜</th></tr></thead>
       <tbody>
-        <tr><td><code>server</code></td><td>·ñ</td><td>netease</td><td>Æ½Ì¨£¬¼ûÉÏ±í</td></tr>
-        <tr><td><code>type</code></td><td>ÊÇ</td><td>¡ª</td><td>½Ó¿ÚÀàĞÍ</td></tr>
-        <tr><td><code>id</code></td><td>ÊÓ½Ó¿Ú</td><td>¡ª</td><td>×ÊÔ´ ID£¬ËÑË÷Ê±Îª¹Ø¼ü´Ê</td></tr>
-        <tr><td><code>page</code></td><td>·ñ</td><td>1</td><td>Ò³Âë£¬½ö search</td></tr>
-        <tr><td><code>limit</code></td><td>·ñ</td><td>30</td><td>Ã¿Ò³ÌõÊı£¬search / artist</td></tr>
-        <tr><td><code>br</code></td><td>·ñ</td><td>320</td><td>ÒôÖÊ kbps£¬½ö url</td></tr>
-        <tr><td><code>size</code></td><td>·ñ</td><td>400</td><td>·âÃæ±ß³¤ÏñËØ£¬½ö pic</td></tr>
+        <tr><td><code>server</code></td><td>å¦</td><td>netease</td><td>å¹³å°ï¼Œè§ä¸Šè¡¨</td></tr>
+        <tr><td><code>type</code></td><td>æ˜¯</td><td>â€”</td><td>æ¥å£ç±»å‹</td></tr>
+        <tr><td><code>id</code></td><td>è§†æ¥å£</td><td>â€”</td><td>èµ„æº IDï¼Œæœç´¢æ—¶ä¸ºå…³é”®è¯</td></tr>
+        <tr><td><code>page</code></td><td>å¦</td><td>1</td><td>é¡µç ï¼Œä»… search</td></tr>
+        <tr><td><code>limit</code></td><td>å¦</td><td>30</td><td>æ¯é¡µæ¡æ•°ï¼Œsearch / artist</td></tr>
+        <tr><td><code>br</code></td><td>å¦</td><td>320</td><td>éŸ³è´¨ kbpsï¼Œä»… url</td></tr>
+        <tr><td><code>size</code></td><td>å¦</td><td>400</td><td>å°é¢è¾¹é•¿åƒç´ ï¼Œä»… pic</td></tr>
       </tbody>
     </table></div>
     <hr class="sep">
-    <h3>·µ»ØÔ¼¶¨</h3>
-    <p class="sub">Êı¾İÀà½Ó¿Ú·µ»Ø JSON Êı×é£¬ÎŞ½á¹ûÊ±Îª <code>[]</code>£»url / lyric / pic ·µ»Ø JSON ¶ÔÏó¡£ÏìÓ¦Í³Ò»Ê¹ÓÃÎ´×ªÒå Unicode£¬ÖĞÎÄ²»×ö×ªÒå¡£</p>
+    <h3>è¿”å›çº¦å®š</h3>
+    <p class="sub">æ•°æ®ç±»æ¥å£è¿”å› JSON æ•°ç»„ï¼Œæ— ç»“æœæ—¶ä¸º <code>[]</code>ï¼›url / lyric / pic è¿”å› JSON å¯¹è±¡ã€‚å“åº”ç»Ÿä¸€ä½¿ç”¨æœªè½¬ä¹‰ Unicodeï¼Œä¸­æ–‡ä¸åšè½¬ä¹‰ã€‚</p>
   </div>
 
-  <div class="sec-t">½Ó¿ÚÏêÇé</div>
+  <div class="sec-t">æ¥å£è¯¦æƒ…</div>
   <?php foreach ($INTERFACES as $k => $v) { ?>
   <div class="card out">
-    <h2><code style="font-size:14px"><?php echo h($k); ?></code> ¡¤ <?php echo h($v['title']); ?></h2>
+    <h2><code style="font-size:14px"><?php echo h($k); ?></code> Â· <?php echo h($v['title']); ?></h2>
     <p class="sub"><?php echo h($v['summary']); ?></p>
-    <h3>ÇëÇó²ÎÊı</h3>
+    <h3>è¯·æ±‚å‚æ•°</h3>
     <div class="tw"><table>
-      <thead><tr><th>²ÎÊı</th><th>ÀàĞÍ</th><th>Ä¬ÈÏ</th><th>ËµÃ÷</th></tr></thead>
+      <thead><tr><th>å‚æ•°</th><th>ç±»å‹</th><th>é»˜è®¤</th><th>è¯´æ˜</th></tr></thead>
       <tbody>
       <?php foreach ($v['params'] as $p) { ?>
-        <tr><td><code><?php echo h($p['name']); ?></code></td><td><?php echo h($p['type']); ?></td><td><?php echo h($p['default'] === '' ? '¡ª' : $p['default']); ?></td><td><?php echo h($p['desc']); ?></td></tr>
+        <tr><td><code><?php echo h($p['name']); ?></code></td><td><?php echo h($p['type']); ?></td><td><?php echo h($p['default'] === '' ? 'â€”' : $p['default']); ?></td><td><?php echo h($p['desc']); ?></td></tr>
       <?php } ?>
       </tbody>
     </table></div>
-    <h3>·µ»ØÊ¾Àı</h3>
+    <h3>è¿”å›ç¤ºä¾‹</h3>
     <pre class="j"><?php echo h($v['response']); ?></pre>
     <p class="sub" style="margin-top:10px"><?php echo h($v['note']); ?></p>
-    <div class="acts"><button class="btn x" data-try="<?php echo h($k); ?>">ÔÚ²âÊÔÌ¨´ò¿ª</button></div>
+    <div class="acts"><button class="btn x" data-try="<?php echo h($k); ?>">åœ¨æµ‹è¯•å°æ‰“å¼€</button></div>
   </div>
   <?php } ?>
 
-  <div class="sec-t">ÔËĞĞÓë²¿Êğ</div>
+  <div class="sec-t">è¿è¡Œä¸éƒ¨ç½²</div>
   <div class="card out">
-    <p class="sub">ÔËĞĞ»·¾³ PHP 5.4 ¼°ÒÔÉÏ£¬Ğè¿ªÆô BCMath¡¢cURL¡¢OpenSSL Èı¸öÀ©Õ¹£¬ÍøÒ×ÔÆ¼ÓÃÜÓë QQ vkey »»È¡ÒÀÀµËüÃÇ¡£ÍøÂç²ãµ¥´ÎÇëÇó³¬Ê± 15 Ãë¡¢Á¬½Ó³¬Ê± 10 Ãë£¬Ê§°Ü×Ô¶¯ÖØÊÔ×î¶à 3 ´Î¡£</p>
-    <p class="sub" style="margin-top:10px">¸÷Æ½Ì¨ÇëÇóÍ·ÄÚÖÃÁË¹Ì¶¨µÄ Cookie¡¢User-Agent Óë Referer£¬ÀıÈç¿áÎÒµÄ kw_token£¬ÉÏÓÎÊ§Ğ§Ê±Ğè¸üĞÂÔ´ÂëÖĞµÄÇëÇóÍ·ÅäÖÃ¡£</p>
-    <p class="sub" style="margin-top:10px">Ô´Âë²»º¬¼øÈ¨¡¢Æµ¿ØÓë»º´æÂß¼­£¬¶ÔÍâÌá¹©·şÎñÇ°ÇëÔÚÍø¹Ø²ã×ÔĞĞ²¹³ä£¬±ÜÃâÉÏÓÎ·â½û¡£</p>
+    <p class="sub">è¿è¡Œç¯å¢ƒ PHP 5.4 åŠä»¥ä¸Šï¼Œéœ€å¼€å¯ BCMathã€cURLã€OpenSSL ä¸‰ä¸ªæ‰©å±•ï¼Œç½‘æ˜“äº‘åŠ å¯†ä¸ QQ vkey æ¢å–ä¾èµ–å®ƒä»¬ã€‚ç½‘ç»œå±‚å•æ¬¡è¯·æ±‚è¶…æ—¶ 15 ç§’ã€è¿æ¥è¶…æ—¶ 10 ç§’ï¼Œå¤±è´¥è‡ªåŠ¨é‡è¯•æœ€å¤š 3 æ¬¡ã€‚</p>
+    <p class="sub" style="margin-top:10px">å„å¹³å°è¯·æ±‚å¤´å†…ç½®äº†å›ºå®šçš„ Cookieã€User-Agent ä¸ Refererï¼Œä¾‹å¦‚é…·æˆ‘çš„ kw_tokenï¼Œä¸Šæ¸¸å¤±æ•ˆæ—¶éœ€æ›´æ–°æºç ä¸­çš„è¯·æ±‚å¤´é…ç½®ã€‚</p>
+    <p class="sub" style="margin-top:10px">æºç ä¸å«é‰´æƒã€é¢‘æ§ä¸ç¼“å­˜é€»è¾‘ï¼Œå¯¹å¤–æä¾›æœåŠ¡å‰è¯·åœ¨ç½‘å…³å±‚è‡ªè¡Œè¡¥å……ï¼Œé¿å…ä¸Šæ¸¸å°ç¦ã€‚</p>
   </div>
 
-  <div class="sec-t">¿çÓòËµÃ÷</div>
+  <div class="sec-t">è·¨åŸŸè¯´æ˜</div>
   <div class="card out">
-    <p class="sub">±¾Ò³Óë½Ó¿ÚÍ¬Ô´£¬¿ÉÖ±½Óµ÷ÓÃ¡£Èô°Ñ½Ó¿ÚÓÃÓÚÆäËüÓòÃûÏÂµÄÇ°¶Ë£¬ĞèÒªÎª api/index.php Ôö¼ÓÏìÓ¦Í·£º</p>
+    <p class="sub">æœ¬é¡µä¸æ¥å£åŒæºï¼Œå¯ç›´æ¥è°ƒç”¨ã€‚è‹¥æŠŠæ¥å£ç”¨äºå…¶å®ƒåŸŸåä¸‹çš„å‰ç«¯ï¼Œéœ€è¦ä¸º api/index.php å¢åŠ å“åº”å¤´ï¼š</p>
     <pre class="j">header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { exit; }</pre>
   </div>
 
-  <p class="foot">MU ÒôÀÖ API ¡¤ ÎÄµµÓë²âÊÔÌ¨</p>
+  <p class="foot">MU éŸ³ä¹ API Â· æ–‡æ¡£ä¸æµ‹è¯•å°</p>
 </section>
 
-<!-- ===================== ²âÊÔÌ¨ ===================== -->
+<!-- ===================== æµ‹è¯•å° ===================== -->
 <section id="p-lab" class="hide">
 
   <div class="card out">
-    <h2>ÔÚÏß²âÊÔ</h2>
-    <p class="sub">Ñ¡ÔñÆ½Ì¨Óë½Ó¿ÚÀàĞÍ£¬ÌîÈë²ÎÊıºó·¢ËÍÇëÇó£¬ÏÂ·½»áÕ¹Ê¾×´Ì¬Âë¡¢ºÄÊ±Óë¸ñÊ½»¯ÏìÓ¦¡£</p>
+    <h2>åœ¨çº¿æµ‹è¯•</h2>
+    <p class="sub">é€‰æ‹©å¹³å°ä¸æ¥å£ç±»å‹ï¼Œå¡«å…¥å‚æ•°åå‘é€è¯·æ±‚ï¼Œä¸‹æ–¹ä¼šå±•ç¤ºçŠ¶æ€ç ã€è€—æ—¶ä¸æ ¼å¼åŒ–å“åº”ã€‚</p>
     <div class="f" style="margin-top:14px">
       <input id="apiBase" type="text" placeholder=" " value="<?php echo h($apiDefault); ?>">
-      <label for="apiBase">½Ó¿ÚµØÖ·</label>
-      <div class="hint">Ä¬ÈÏ°´µ±Ç°²¿ÊğÎ»ÖÃ×Ô¶¯ÍÆµ¼£¬¿ÉÊÖ¶¯ĞŞ¸Ä</div>
+      <label for="apiBase">æ¥å£åœ°å€</label>
+      <div class="hint">é»˜è®¤æŒ‰å½“å‰éƒ¨ç½²ä½ç½®è‡ªåŠ¨æ¨å¯¼ï¼Œå¯æ‰‹åŠ¨ä¿®æ”¹</div>
     </div>
   </div>
 
   <div class="card out">
-    <h2>Æ½Ì¨</h2>
+    <h2>å¹³å°</h2>
     <div class="chips" id="chips">
       <?php foreach ($SERVERS as $i => $s) { ?>
         <button class="chip" data-sv="<?php echo h($s['value']); ?>" aria-pressed="<?php echo $i === 0 ? 'true' : 'false'; ?>"><?php echo h($s['label']); ?></button>
@@ -569,44 +569,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { exit; }</pre>
     <div class="f" style="margin-top:16px">
       <select id="type">
         <?php foreach ($INTERFACES as $k => $v) { ?>
-          <option value="<?php echo h($k); ?>"><?php echo h($k); ?> ¡ª <?php echo h($v['title']); ?></option>
+          <option value="<?php echo h($k); ?>"><?php echo h($k); ?> â€” <?php echo h($v['title']); ?></option>
         <?php } ?>
       </select>
-      <label for="type">½Ó¿ÚÀàĞÍ</label>
+      <label for="type">æ¥å£ç±»å‹</label>
       <svg class="i arw" style="width:20px;height:20px"><use href="#i-drop"/></svg>
     </div>
 
     <div id="fields"></div>
 
     <div class="acts">
-      <button class="btn f" id="go"><svg class="i" style="width:18px;height:18px"><use href="#i-send"/></svg>·¢ËÍÇëÇó</button>
-      <button class="btn o" id="clr">ÖØÖÃ²ÎÊı</button>
+      <button class="btn f" id="go"><svg class="i" style="width:18px;height:18px"><use href="#i-send"/></svg>å‘é€è¯·æ±‚</button>
+      <button class="btn o" id="clr">é‡ç½®å‚æ•°</button>
     </div>
   </div>
 
   <div class="card out hide" id="res">
-    <h2>ÏìÓ¦½á¹û</h2>
+    <h2>å“åº”ç»“æœ</h2>
     <div class="meta" id="meta"></div>
     <div class="urlbox">
       <span id="rurl"></span>
-      <button class="mini" id="cpurl" style="flex:none">¸´ÖÆ</button>
+      <button class="mini" id="cpurl" style="flex:none">å¤åˆ¶</button>
     </div>
     <div id="slist"></div>
     <pre class="j" id="body" style="margin-top:10px"></pre>
   </div>
 
-  <p class="foot">ÏìÓ¦½ö¹©²Î¿¼£¬Êµ¼Ê¿ÉÓÃĞÔÈ¡¾öÓÚÉÏÓÎÆ½Ì¨×´Ì¬</p>
+  <p class="foot">å“åº”ä»…ä¾›å‚è€ƒï¼Œå®é™…å¯ç”¨æ€§å–å†³äºä¸Šæ¸¸å¹³å°çŠ¶æ€</p>
 </section>
 
 </div>
 
-<div class="sn" id="sn"><span id="snt"></span><button id="sna">ÖªµÀÁË</button></div>
+<div class="sn" id="sn"><span id="snt"></span><button id="sna">çŸ¥é“äº†</button></div>
 
 <script>
 var ITF  = <?php echo $JS_INTERFACES ? $JS_INTERFACES : '{}'; ?>;
 var SUPP = <?php echo $JS_SUPPORT ? $JS_SUPPORT : '{}'; ?>;
 
-/* ---------- Ö÷Ìâ ---------- */
+/* ---------- ä¸»é¢˜ ---------- */
 (function(){
   var ico = document.querySelector('#theme use');
   function cur(){
@@ -630,7 +630,7 @@ var SUPP = <?php echo $JS_SUPPORT ? $JS_SUPPORT : '{}'; ?>;
   };
 })();
 
-/* ---------- Tab ÇĞ»» ---------- */
+/* ---------- Tab åˆ‡æ¢ ---------- */
 var tabs = document.querySelectorAll('.tab');
 tabs.forEach(function(t){
   t.onclick = function(){
@@ -662,7 +662,7 @@ document.getElementById('sna').onclick = function(){
   document.getElementById('sn').classList.remove('show');
 };
 
-/* ---------- Æ½Ì¨ chips ---------- */
+/* ---------- å¹³å° chips ---------- */
 var server = 'netease';
 var chips = document.querySelectorAll('#chips .chip');
 chips.forEach(function(c){
@@ -677,7 +677,7 @@ function setServer(v){
   server = v;
 }
 
-/* ---------- ²ÎÊı±íµ¥ ---------- */
+/* ---------- å‚æ•°è¡¨å• ---------- */
 var selType = document.getElementById('type');
 var fieldBox = document.getElementById('fields');
 
@@ -718,7 +718,7 @@ buildFields(curType(), null);
 
 document.getElementById('clr').onclick = function(){ buildFields(curType(), null); };
 
-/* ---------- ÎÄµµÀïµÄ¡¸ÔÚ²âÊÔÌ¨´ò¿ª¡¹ ---------- */
+/* ---------- æ–‡æ¡£é‡Œçš„ã€Œåœ¨æµ‹è¯•å°æ‰“å¼€ã€ ---------- */
 document.querySelectorAll('[data-try]').forEach(function(b){
   b.onclick = function(){
     var t = b.getAttribute('data-try');
@@ -728,7 +728,7 @@ document.querySelectorAll('[data-try]').forEach(function(b){
   };
 });
 
-/* ---------- ·¢ËÍÇëÇó ---------- */
+/* ---------- å‘é€è¯·æ±‚ ---------- */
 function esc(s){
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
@@ -762,12 +762,12 @@ function renderList(arr){
     html += '<div class="si">'
       + '<svg class="i" style="width:20px;height:20px;color:var(--p);flex:none"><use href="#i-note"/></svg>'
       + '<div class="tx"><div class="nm">' + esc(o.name) + '</div>'
-      + '<div class="ar">' + esc(ar) + (o.album ? ' ¡¤ ' + esc(o.album) : '') + '</div></div>'
+      + '<div class="ar">' + esc(ar) + (o.album ? ' Â· ' + esc(o.album) : '') + '</div></div>'
       + '<span class="src">' + esc(o.source || '') + '</span>'
       + '<div class="op">'
-      + '<button class="mini" data-act="url"   data-v="' + esc(o.url_id   || o.id) + '">Ö±Á´</button>'
-      + '<button class="mini" data-act="lyric" data-v="' + esc(o.lyric_id || o.id) + '">¸è´Ê</button>'
-      + '<button class="mini" data-act="pic"   data-v="' + esc(o.pic_id   || o.id) + '">·âÃæ</button>'
+      + '<button class="mini" data-act="url"   data-v="' + esc(o.url_id   || o.id) + '">ç›´é“¾</button>'
+      + '<button class="mini" data-act="lyric" data-v="' + esc(o.lyric_id || o.id) + '">æ­Œè¯</button>'
+      + '<button class="mini" data-act="pic"   data-v="' + esc(o.pic_id   || o.id) + '">å°é¢</button>'
       + '</div></div>';
   });
   slist.innerHTML = html;
@@ -784,7 +784,7 @@ function renderList(arr){
 
 function send(){
   var base = document.getElementById('apiBase').value.trim();
-  if (!base) { snack('ÇëÌîĞ´½Ó¿ÚµØÖ·'); return; }
+  if (!base) { snack('è¯·å¡«å†™æ¥å£åœ°å€'); return; }
   var t = curType();
   var q = new URLSearchParams();
   q.set('server', server);
@@ -798,7 +798,7 @@ function send(){
 
   urlBox.textContent = url;
   resBox.classList.remove('hide');
-  metaBox.innerHTML = badge('ÇëÇóÖĞ');
+  metaBox.innerHTML = badge('è¯·æ±‚ä¸­');
   bodyBox.textContent = '';
   slist.innerHTML = '';
   document.getElementById('go').disabled = true;
@@ -810,25 +810,25 @@ function send(){
       var st = r.status;
       return r.text().then(function(tx){
         metaBox.innerHTML = badge('HTTP ' + st, st >= 200 && st < 300 ? 'ok' : 'bad')
-          + badge(ms + ' ms') + badge(tx.length + ' ×Ö½Ú');
+          + badge(ms + ' ms') + badge(tx.length + ' å­—èŠ‚');
         var parsed = null, isJson = false;
         try { parsed = JSON.parse(tx); isJson = true; } catch (e) {}
         if (isJson) {
           bodyBox.innerHTML = hl(JSON.stringify(parsed, null, 2));
           renderList(parsed);
           if (Array.isArray(parsed) && parsed.length === 0) {
-            metaBox.innerHTML += badge('¿Õ½á¹û', 'bad');
+            metaBox.innerHTML += badge('ç©ºç»“æœ', 'bad');
           }
         } else {
-          bodyBox.innerHTML = hl(tx || '£¨ÏìÓ¦ÌåÎª¿Õ£©');
-          if (!tx) metaBox.innerHTML += badge('¿ÕÏìÓ¦', 'bad');
+          bodyBox.innerHTML = hl(tx || 'ï¼ˆå“åº”ä½“ä¸ºç©ºï¼‰');
+          if (!tx) metaBox.innerHTML += badge('ç©ºå“åº”', 'bad');
         }
       });
     })
     .catch(function(e){
-      metaBox.innerHTML = badge('ÇëÇóÊ§°Ü', 'bad');
+      metaBox.innerHTML = badge('è¯·æ±‚å¤±è´¥', 'bad');
       bodyBox.innerHTML = hl(String(e && e.message ? e.message : e)
-        + '\n\n¿ÉÄÜÔ­Òò£º½Ó¿ÚµØÖ·²»¿É´ï¡¢±»Íø¹ØÀ¹½Ø£¬»ò¿çÓòÎ´·ÅĞĞ¡£');
+        + '\n\nå¯èƒ½åŸå› ï¼šæ¥å£åœ°å€ä¸å¯è¾¾ã€è¢«ç½‘å…³æ‹¦æˆªï¼Œæˆ–è·¨åŸŸæœªæ”¾è¡Œã€‚');
     })
     .then(function(){ document.getElementById('go').disabled = false; });
 }
@@ -838,13 +838,13 @@ document.getElementById('go').onclick = send;
 document.getElementById('cpurl').onclick = function(){
   var txt = urlBox.textContent;
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(txt).then(function(){ snack('µØÖ·ÒÑ¸´ÖÆ'); }, function(){ snack('¸´ÖÆÊ§°Ü'); });
+    navigator.clipboard.writeText(txt).then(function(){ snack('åœ°å€å·²å¤åˆ¶'); }, function(){ snack('å¤åˆ¶å¤±è´¥'); });
   } else {
-    snack('µ±Ç°»·¾³²»Ö§³Ö×Ô¶¯¸´ÖÆ');
+    snack('å½“å‰ç¯å¢ƒä¸æ”¯æŒè‡ªåŠ¨å¤åˆ¶');
   }
 };
 
-/* ---------- App bar ÒõÓ° ---------- */
+/* ---------- App bar é˜´å½± ---------- */
 var bar = document.getElementById('bar');
 window.addEventListener('scroll', function(){
   bar.classList.toggle('s', window.scrollY > 4);
