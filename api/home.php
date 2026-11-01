@@ -815,9 +815,22 @@ function send(){
         try { parsed = JSON.parse(tx); isJson = true; } catch (e) {}
         if (isJson) {
           bodyBox.innerHTML = hl(JSON.stringify(parsed, null, 2));
-          renderList(parsed);
-          if (Array.isArray(parsed) && parsed.length === 0) {
-            metaBox.innerHTML += badge('空结果', 'bad');
+          // 兼容统一信封 {ok, data, meta} 与裸数组两种返回
+          var env = (parsed && typeof parsed === 'object' && !Array.isArray(parsed)
+                     && Object.prototype.hasOwnProperty.call(parsed, 'data'));
+          var payload = env ? parsed.data : parsed;
+          if (env && parsed.ok === false) {
+            var ec = (parsed.error && parsed.error.code) ? parsed.error.code : 'error';
+            metaBox.innerHTML += badge('业务错误: ' + ec, 'bad');
+            if (parsed.error && parsed.error.message) snack(parsed.error.message);
+          } else {
+            renderList(payload);
+            if (Array.isArray(payload) && payload.length === 0) {
+              metaBox.innerHTML += badge('空结果', 'bad');
+            }
+            if (env && parsed.meta && parsed.meta.cached) {
+              metaBox.innerHTML += badge('命中缓存');
+            }
           }
         } else {
           bodyBox.innerHTML = hl(tx || '（响应体为空）');
